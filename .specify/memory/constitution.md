@@ -1,50 +1,83 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+- Version change: none → 1.0.0
+- Ratification: initial adoption (2026-05-30)
+- Modified principles: n/a (initial creation)
+- Added sections:
+  - Core Principles (I. Spec-Driven Development, II. Test-First Quality,
+    III. Simplicity & YAGNI, IV. Consistent User Experience, V. Data Integrity & Privacy)
+  - Technology & Architecture Constraints
+  - Development Workflow
+  - Governance
+- Removed sections: none
+- Templates requiring updates:
+  - .specify/templates/plan-template.md ✅ verified (generic Constitution Check gate; no drift)
+  - .specify/templates/spec-template.md ✅ verified (no constitution-specific edits needed)
+  - .specify/templates/tasks-template.md ✅ verified (testing/quality tasks align)
+- Follow-up TODOs: none
+-->
+
+# reading-todo Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-Driven Development (NON-NEGOTIABLE)
+Every feature begins with a written specification and an approved plan before any
+implementation work starts. Production code MUST trace back to a spec; changes that
+lack an associated spec or plan MUST NOT be merged. This keeps intent explicit and
+keeps the reading-list and todo capabilities coherent as the product grows.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Test-First Quality
+Core logic — reading-list state, todo CRUD, and persistence — MUST be covered by
+automated tests written before or alongside the implementation. The full test suite
+MUST pass before any change is merged. Bug fixes MUST include a regression test that
+fails without the fix.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Simplicity & YAGNI
+Start with the simplest design that satisfies the current spec. Additional
+abstractions, dependencies, or services MUST be justified against a present
+requirement, not a speculative future one. When two solutions are equivalent, choose
+the one that is easier to read, test, and remove.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Consistent User Experience
+The reading-list and todo views MUST share consistent interaction patterns, layout,
+and terminology so the combined app feels like one product. The UI MUST be responsive
+and meet baseline accessibility: keyboard navigability, semantic HTML, and sufficient
+color contrast.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Data Integrity & Privacy
+User reading data and todos MUST persist reliably with no silent data loss; write
+failures MUST surface to the user. User data MUST NOT be shared with third parties
+without explicit consent, and only data required for a feature may be collected.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology & Architecture Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- The stack is TypeScript end-to-end: a React (or equivalent component framework)
+  front-end and a documented API boundary between the client and storage.
+- State management and persistence choices MUST be recorded in the feature plan.
+- Prefer well-supported, actively maintained libraries over bespoke implementations
+  for solved problems.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- All changes land via reviewed pull requests. The reviewer MUST verify constitution
+  compliance and that the plan's Constitution Check passes.
+- Linting and the automated test suite are required quality gates and MUST pass before
+  merge.
+- Specs, plans, and tasks live alongside the code under the Spec Kit structure and are
+  kept in sync with the implementation.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes ad-hoc practices. Amendments MUST be proposed via a pull
+request that documents the rationale and applies a version bump under semantic
+versioning:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- MAJOR: backward-incompatible governance or principle removals/redefinitions.
+- MINOR: a new principle or section, or materially expanded guidance.
+- PATCH: clarifications, wording, or non-semantic refinements.
+
+Compliance is reviewed at plan time and at pull-request review time. Unjustified
+complexity or deviations MUST be corrected or explicitly justified before merge.
+
+**Version**: 1.0.0 | **Ratified**: 2026-05-30 | **Last Amended**: 2026-05-30
