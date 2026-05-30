@@ -15,6 +15,12 @@ export async function api<T>(
   path: string,
   options: RequestInit & { json?: unknown } = {},
 ): Promise<T> {
+  // When the backend is "pended" (VITE_MOCK), serve from the in-memory mock instead.
+  if (import.meta.env.VITE_MOCK === '1' || import.meta.env.VITE_MOCK === 'true') {
+    const { mockApi } = await import('./mock.js');
+    return mockApi<T>(path, { method: options.method, json: options.json });
+  }
+
   const { json, headers, ...rest } = options;
   const res = await fetch(path, {
     credentials: 'include',

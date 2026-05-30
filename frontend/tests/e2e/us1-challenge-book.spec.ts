@@ -11,11 +11,16 @@ test('connect a challenge to a book with intent (persists after reload)', async 
 
   await page.goto('/');
 
-  // Register a new account.
-  await page.getByRole('button', { name: 'Register' }).first().click();
-  await page.getByLabel('Email').fill(email);
-  await page.getByLabel(/Password/).fill('password123');
-  await page.getByRole('button', { name: 'Register' }).click();
+  // Register a new account — unless auth is pended (mock mode auto-signs-in as guest).
+  const challengeInput = page.getByLabel(/What challenge/);
+  const registerBtn = page.getByRole('button', { name: 'Register' }).first();
+  await expect(challengeInput.or(registerBtn)).toBeVisible();
+  if (await registerBtn.isVisible()) {
+    await registerBtn.click();
+    await page.getByLabel('Email').fill(email);
+    await page.getByLabel(/Password/).fill('password123');
+    await page.getByRole('button', { name: 'Register' }).click();
+  }
 
   // Create a challenge.
   await page.getByLabel(/What challenge/).fill('Manage my time better');

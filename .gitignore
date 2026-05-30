@@ -13,6 +13,7 @@ npm-debug.log*
 .env
 .env.*
 !.env.example
+!.env.mock
 
 # Database (local SQLite dev/test)
 *.db

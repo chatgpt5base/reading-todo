@@ -12,6 +12,7 @@
     "build:shared": "npm run build --workspace @reading-todo/shared",
     "dev:backend": "npm run dev --workspace @reading-todo/backend",
     "dev:frontend": "npm run dev --workspace @reading-todo/frontend",
+    "dev:mock": "npm run dev:mock --workspace @reading-todo/frontend",
     "test": "npm run test --workspace @reading-todo/backend",
     "lint": "eslint .",
     "format": "prettier --write ."

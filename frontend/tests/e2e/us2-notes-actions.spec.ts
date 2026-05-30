@@ -10,10 +10,17 @@ test('convert a reading note into an action', async ({ page }) => {
   const email = `e2e2_${Date.now()}@example.com`;
 
   await page.goto('/');
-  await page.getByRole('button', { name: 'Register' }).first().click();
-  await page.getByLabel('Email').fill(email);
-  await page.getByLabel(/Password/).fill('password123');
-  await page.getByRole('button', { name: 'Register' }).click();
+
+  // Register a new account — unless auth is pended (mock mode auto-signs-in as guest).
+  const challengeInput = page.getByLabel(/What challenge/);
+  const registerBtn = page.getByRole('button', { name: 'Register' }).first();
+  await expect(challengeInput.or(registerBtn)).toBeVisible();
+  if (await registerBtn.isVisible()) {
+    await registerBtn.click();
+    await page.getByLabel('Email').fill(email);
+    await page.getByLabel(/Password/).fill('password123');
+    await page.getByRole('button', { name: 'Register' }).click();
+  }
 
   // Challenge + book.
   await page.getByLabel(/What challenge/).fill('Build better habits');
