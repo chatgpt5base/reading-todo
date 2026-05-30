@@ -34,4 +34,11 @@ test('convert a reading note into an action', async ({ page }) => {
   await page.getByRole('button', { name: 'Create action' }).click();
 
   await expect(page.getByText('Do 10 pushups after morning coffee')).toBeVisible();
+
+  // Traceability preserved after reload: the note and its derived action persist
+  // on the same book detail page (Challenge -> Book -> Note -> Action).
+  await page.reload();
+  await expect(page.getByText('Habit stacking links a new habit to an old one')).toBeVisible();
+  await expect(page.getByText('Do 10 pushups after morning coffee')).toBeVisible();
+  await expect(page.getByText('(Daily)')).toBeVisible();
 });
