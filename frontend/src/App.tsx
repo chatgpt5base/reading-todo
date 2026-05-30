@@ -13,8 +13,11 @@ export function App() {
 
   if (isLoading) return <div className="container"><p className="muted">Loading…</p></div>;
 
+  // Support being served from a sub-path (e.g. GitHub Pages /reading-todo/).
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       {MOCK_ENABLED && (
         <div
           role="status"
