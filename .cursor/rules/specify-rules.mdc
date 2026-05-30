@@ -4,5 +4,11 @@ alwaysApply: true
 
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+shell commands, and other important information, read the current plan:
+`specs/001-reading-action-system/plan.md`
+
+Active feature: 001-reading-action-system (Reading-to-Action System).
+Stack: TypeScript end-to-end; React + Vite (frontend), Fastify + Prisma (backend),
+PostgreSQL (SQLite for local dev), Zod shared schemas, Vitest/RTL/Playwright tests.
+See also: data-model.md, contracts/api.md, research.md, quickstart.md in the same dir.
 <!-- SPECKIT END -->
