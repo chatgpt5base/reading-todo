@@ -105,21 +105,21 @@ a cadence, and confirm the action links back to its source note and book.
 
 ### Tests for User Story 2 ⚠️ (write first, ensure they fail)
 
-- [ ] T032 [P] [US2] Contract test for note endpoints (create/list/update/delete) in `backend/tests/contract/notes.test.ts`
-- [ ] T033 [P] [US2] Contract test for action creation from note + cadence-required validation in `backend/tests/contract/actions-create.test.ts`
-- [ ] T034 [P] [US2] Integration test for note→action conversion and traceability (action→note→book→challenge) in `backend/tests/integration/note-action.test.ts`
-- [ ] T035 [P] [US2] Playwright E2E for US2 Independent Test in `frontend/tests/e2e/us2-notes-actions.spec.ts`
+- [X] T032 [P] [US2] Contract test for note endpoints (create/list/delete + ownership) in `backend/tests/contract/notes.test.ts`
+- [X] T033 [P] [US2] Contract test for action creation from note + cadence-required validation in `backend/tests/contract/actions-create.test.ts`
+- [X] T034 [P] [US2] Integration test for note→action conversion and traceability (action→note→book→challenge) in `backend/tests/integration/note-action.test.ts`
+- [X] T035 [P] [US2] Playwright E2E for US2 Independent Test in `frontend/tests/e2e/us2-notes-actions.spec.ts` (written; run with `npm run test:e2e` after `npx playwright install`)
 
 ### Implementation for User Story 2
 
-- [ ] T036 [P] [US2] Implement Note service (CRUD under book; detach actions on delete) in `backend/src/services/note.ts`
-- [ ] T037 [P] [US2] Implement Action creation service (from note, cadence required, traceability) in `backend/src/services/action.ts`
-- [ ] T038 [US2] Implement note routes in `backend/src/api/notes.ts` (depends on T036)
-- [ ] T039 [US2] Implement action creation/update routes in `backend/src/api/actions.ts` (depends on T037)
-- [ ] T040 [US2] Enforce cadence-required validation via shared Zod schema in action routes (FR-006)
-- [ ] T041 [P] [US2] Frontend notes panel on Book detail page in `frontend/src/pages/BookDetail.tsx`
-- [ ] T042 [P] [US2] Frontend convert-note-to-action UI with cadence selector in `frontend/src/components/ActionFromNote.tsx`
-- [ ] T043 [US2] Frontend TanStack Query hooks for notes/actions in `frontend/src/services/notes.ts` and `frontend/src/services/actions.ts`
+- [X] T036 [P] [US2] Implement Note service (create/list under book; delete detaches actions) in `backend/src/services/note.ts`
+- [X] T037 [P] [US2] Implement Action creation service (from note, cadence required, traceability) in `backend/src/services/action.ts`
+- [X] T038 [US2] Implement note routes in `backend/src/api/notes.ts` (depends on T036)
+- [X] T039 [US2] Implement action create/list routes in `backend/src/api/actions.ts` (depends on T037). NOTE: action update/complete/reopen deferred to US3 per scope.
+- [X] T040 [US2] Enforce cadence-required validation via shared Zod schema in action routes (FR-006)
+- [X] T041 [P] [US2] Frontend notes panel on Book detail page in `frontend/src/pages/BookDetail.tsx`
+- [X] T042 [P] [US2] Frontend convert-note-to-action UI with cadence selector in `frontend/src/components/NoteActions.tsx`
+- [X] T043 [US2] Frontend TanStack Query hooks for notes/actions in `frontend/src/services/notes.ts` and `frontend/src/services/actions.ts`
 
 **Checkpoint**: User Stories 1 AND 2 both work independently
 

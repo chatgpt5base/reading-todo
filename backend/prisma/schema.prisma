@@ -1,6 +1,6 @@
-// Prisma schema for the Reading-to-Action System (MVP scope).
-// MVP implements User, Challenge, and Book. Note, Action, and ActionCompletion
-// (data-model.md) are intentionally deferred to user stories US2/US3.
+// Prisma schema for the Reading-to-Action System.
+// US1 implemented User, Challenge, Book. US2 (minimum) adds Note and Action.
+// ActionCompletion / recurrence / progress (data-model.md) remain deferred to US3.
 
 generator client {
   provider = "prisma-client-js"
@@ -41,6 +41,30 @@ model Book {
   readingReason String?
   readingStatus String    @default("to_read") // to_read | reading | done
   createdAt     DateTime  @default(now())
+  notes         Note[]
 
   @@index([challengeId])
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
+  actions   Action[]
+
+  @@index([bookId])
+}
+
+model Action {
+  id                String   @id @default(uuid())
+  noteId            String?
+  note              Note?    @relation(fields: [noteId], references: [id], onDelete: SetNull)
+  description       String
+  cadence           String // daily | weekly | monthly | one_time
+  sourceNoteDeleted Boolean  @default(false)
+  createdAt         DateTime @default(now())
+
+  @@index([noteId])
 }

@@ -40,3 +40,16 @@ export const updateBookSchema = z
     readingStatus: readingStatusSchema.optional(),
   })
   .refine((v) => Object.keys(v).length > 0, { message: 'No fields to update' });
+
+// Note
+export const createNoteSchema = z.object({
+  content: z.string().trim().min(1, 'Note content is required').max(5000),
+});
+
+// Action (cadence is required, FR-006). Recurrence/completion are out of scope here.
+export const cadenceSchema = z.enum(['daily', 'weekly', 'monthly', 'one_time']);
+
+export const createActionSchema = z.object({
+  description: z.string().trim().min(1, 'Action description is required').max(1000),
+  cadence: cadenceSchema,
+});

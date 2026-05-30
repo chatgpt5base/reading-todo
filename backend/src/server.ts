@@ -4,6 +4,8 @@ import { registerErrorHandler } from './lib/errors.js';
 import { authRoutes } from './api/auth.js';
 import { challengeRoutes } from './api/challenges.js';
 import { bookRoutes } from './api/books.js';
+import { noteRoutes } from './api/notes.js';
+import { actionRoutes } from './api/actions.js';
 
 export function buildApp(): FastifyInstance {
   const app = Fastify({ logger: process.env.NODE_ENV !== 'test' });
@@ -22,6 +24,8 @@ export function buildApp(): FastifyInstance {
   app.register(authRoutes);
   app.register(challengeRoutes);
   app.register(bookRoutes);
+  app.register(noteRoutes);
+  app.register(actionRoutes);
 
   return app;
 }

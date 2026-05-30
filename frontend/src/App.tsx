@@ -3,6 +3,7 @@ import { useLogout, useMe } from './services/auth.js';
 import { Auth } from './pages/Auth.js';
 import { Challenges } from './pages/Challenges.js';
 import { ChallengeDetail } from './pages/ChallengeDetail.js';
+import { BookDetail } from './pages/BookDetail.js';
 import { Button } from './components/ui.js';
 
 export function App() {
@@ -30,6 +31,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Challenges />} />
           <Route path="/challenges/:id" element={<ChallengeDetail />} />
+          <Route path="/books/:id" element={<BookDetail />} />
         </Routes>
       )}
     </BrowserRouter>

@@ -1,6 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Book, CreateBookInput } from '@reading-todo/shared';
 import { api } from './api.js';
+
+export function useBook(id: string) {
+  return useQuery<Book>({
+    queryKey: ['book', id],
+    queryFn: () => api<{ book: Book }>(`/api/books/${id}`).then((r) => r.book),
+  });
+}
 
 export function useCreateBook(challengeId: string) {
   const qc = useQueryClient();

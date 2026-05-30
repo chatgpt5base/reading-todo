@@ -94,7 +94,10 @@ export function ChallengeDetail() {
           <div className="card" key={b.id}>
             <div className="row">
               <div>
-                <strong>{b.title}</strong> <span className="muted">by {b.author}</span>
+                <Link to={`/books/${b.id}`}>
+                  <strong>{b.title}</strong>
+                </Link>{' '}
+                <span className="muted">by {b.author}</span>
               </div>
               <Button variant="danger" onClick={() => removeBook.mutate(b.id)}>
                 Remove

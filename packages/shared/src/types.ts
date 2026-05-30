@@ -7,6 +7,9 @@ import type {
   updateBookSchema,
   challengeStatusSchema,
   readingStatusSchema,
+  createNoteSchema,
+  createActionSchema,
+  cadenceSchema,
 } from './schemas.js';
 
 export type Credentials = z.infer<typeof credentialsSchema>;
@@ -16,6 +19,9 @@ export type CreateBookInput = z.infer<typeof createBookSchema>;
 export type UpdateBookInput = z.infer<typeof updateBookSchema>;
 export type ChallengeStatus = z.infer<typeof challengeStatusSchema>;
 export type ReadingStatus = z.infer<typeof readingStatusSchema>;
+export type CreateNoteInput = z.infer<typeof createNoteSchema>;
+export type CreateActionInput = z.infer<typeof createActionSchema>;
+export type Cadence = z.infer<typeof cadenceSchema>;
 
 export interface PublicUser {
   id: string;
@@ -37,6 +43,22 @@ export interface Book {
   author: string;
   readingReason: string | null;
   readingStatus: ReadingStatus;
+  createdAt: string;
+}
+
+export interface Note {
+  id: string;
+  bookId: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface Action {
+  id: string;
+  noteId: string | null;
+  description: string;
+  cadence: Cadence;
+  sourceNoteDeleted: boolean;
   createdAt: string;
 }
 
