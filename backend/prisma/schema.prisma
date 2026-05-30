@@ -1,0 +1,46 @@
+// Prisma schema for the Reading-to-Action System (MVP scope).
+// MVP implements User, Challenge, and Book. Note, Action, and ActionCompletion
+// (data-model.md) are intentionally deferred to user stories US2/US3.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String
+  createdAt    DateTime    @default(now())
+  challenges   Challenge[]
+}
+
+model Challenge {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  status      String   @default("active") // active | archived
+  createdAt   DateTime @default(now())
+  books       Book[]
+
+  @@index([userId])
+}
+
+model Book {
+  id            String    @id @default(uuid())
+  challengeId   String
+  challenge     Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  title         String
+  author        String
+  readingReason String?
+  readingStatus String    @default("to_read") // to_read | reading | done
+  createdAt     DateTime  @default(now())
+
+  @@index([challengeId])
+}

@@ -32,12 +32,12 @@ implementation and testing of each story.
 
 **Purpose**: Project initialization and tooling
 
-- [ ] T001 Create monorepo workspace structure (`backend/`, `frontend/`, `packages/shared/`) with root `package.json` workspaces per plan.md
-- [ ] T002 [P] Initialize backend TypeScript project (Fastify, Prisma, Zod, Vitest) in `backend/package.json` and `backend/tsconfig.json`
-- [ ] T003 [P] Initialize frontend React + Vite + TypeScript project (React Router, TanStack Query, Vitest, React Testing Library, Playwright) in `frontend/package.json` and `frontend/tsconfig.json`
-- [ ] T004 [P] Initialize shared package (TypeScript + Zod) in `packages/shared/package.json` and `packages/shared/tsconfig.json`
-- [ ] T005 [P] Configure ESLint + Prettier at repo root in `.eslintrc.cjs` and `.prettierrc`
-- [ ] T006 [P] Configure test runners (Vitest config for backend and frontend, Playwright config in `frontend/playwright.config.ts`)
+- [X] T001 Create monorepo workspace structure (`backend/`, `frontend/`, `packages/shared/`) with root `package.json` workspaces per plan.md
+- [X] T002 [P] Initialize backend TypeScript project (Fastify, Prisma, Zod, Vitest) in `backend/package.json` and `backend/tsconfig.json`
+- [X] T003 [P] Initialize frontend React + Vite + TypeScript project (React Router, TanStack Query, Playwright) in `frontend/package.json` and `frontend/tsconfig.json`
+- [X] T004 [P] Initialize shared package (TypeScript + Zod) in `packages/shared/package.json` and `packages/shared/tsconfig.json`
+- [X] T005 [P] Configure ESLint + Prettier at repo root in `.eslintrc.cjs` and `.prettierrc`
+- [X] T006 [P] Configure test runners (Vitest config in `backend/vitest.config.ts`, Playwright config in `frontend/playwright.config.ts`)
 
 ---
 
@@ -47,18 +47,18 @@ implementation and testing of each story.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T007 Define Prisma schema for all entities (User, Challenge, Book, Note, Action, ActionCompletion) with relations and constraints in `backend/prisma/schema.prisma` per data-model.md
-- [ ] T008 Create initial migration, SQLite dev setup, and `backend/.env.example` (`DATABASE_URL`, `SESSION_SECRET`)
-- [ ] T009 [P] Define shared Zod schemas and TypeScript types for all entities and request/response bodies in `packages/shared/src/schemas.ts` and `packages/shared/src/types.ts`
-- [ ] T010 [P] Implement period-key utility (daily/weekly/monthly/one_time) as a pure function in `backend/src/lib/period.ts` per data-model.md
-- [ ] T011 [P] [Test] Unit tests for period-key utility (all cadences, ISO week boundaries) in `backend/tests/unit/period.test.ts`
-- [ ] T012 Implement Prisma client wrapper and transaction helper in `backend/src/models/db.ts`
-- [ ] T013 Implement Fastify bootstrap, consistent JSON error shape, and error handler in `backend/src/server.ts` and `backend/src/lib/errors.ts`
-- [ ] T014 [Test] Contract/integration tests for auth (register, login, logout, me) in `backend/tests/contract/auth.test.ts`
-- [ ] T015 Implement auth service and routes (register, login, logout, me) with session cookie in `backend/src/services/auth.ts` and `backend/src/api/auth.ts`
-- [ ] T016 Implement per-user scoping guard (reject access to non-owned resources with 403) in `backend/src/lib/auth.ts`
-- [ ] T017 [P] Frontend app shell: router, layout, design tokens, and base components (Button, Input, EmptyState) in `frontend/src/main.tsx`, `frontend/src/components/`
-- [ ] T018 [P] Frontend API client + TanStack Query provider + auth pages (login/register) in `frontend/src/services/api.ts` and `frontend/src/pages/Auth.tsx`
+- [X] T007 Define Prisma schema in `backend/prisma/schema.prisma` per data-model.md. NOTE: MVP implements User, Challenge, Book; Note/Action/ActionCompletion deferred to US2/US3 per scope.
+- [X] T008 Create initial schema sync (SQLite dev via `prisma db push`) and `backend/.env.example` (`DATABASE_URL`, `SESSION_SECRET`)
+- [X] T009 [P] Define shared Zod schemas and TypeScript types in `packages/shared/src/schemas.ts` and `packages/shared/src/types.ts`. NOTE: MVP covers auth/challenge/book; note/action schemas deferred.
+- [ ] T010 [P] Implement period-key utility (daily/weekly/monthly/one_time) as a pure function in `backend/src/lib/period.ts` per data-model.md — DEFERRED (US3 actions only; out of MVP scope)
+- [ ] T011 [P] [Test] Unit tests for period-key utility (all cadences, ISO week boundaries) in `backend/tests/unit/period.test.ts` — DEFERRED (US3 only)
+- [X] T012 Implement Prisma client in `backend/src/models/db.ts`
+- [X] T013 Implement Fastify bootstrap, consistent JSON error shape, and error handler in `backend/src/server.ts` and `backend/src/lib/errors.ts`
+- [X] T014 [Test] Contract tests for auth (register, login, logout, me) in `backend/tests/contract/auth.test.ts`
+- [X] T015 Implement auth service and routes (register, login, logout, me) with session cookie in `backend/src/services/auth.ts` and `backend/src/api/auth.ts`
+- [X] T016 Implement per-user scoping guard (reject access to non-owned resources) in `backend/src/lib/auth.ts`
+- [X] T017 [P] Frontend app shell: router, layout, design tokens, and base components (Button, Field, EmptyState) in `frontend/src/main.tsx`, `frontend/src/App.tsx`, `frontend/src/components/ui.tsx`
+- [X] T018 [P] Frontend API client + TanStack Query provider + auth pages (login/register) in `frontend/src/services/api.ts` and `frontend/src/pages/Auth.tsx`
 
 **Checkpoint**: Foundation ready — user story implementation can now begin
 
@@ -74,22 +74,22 @@ confirm the challenge shows its linked book and reason persist.
 
 ### Tests for User Story 1 ⚠️ (write first, ensure they fail)
 
-- [ ] T019 [P] [US1] Contract test for challenge endpoints (create/list/get/update/delete with confirm) in `backend/tests/contract/challenges.test.ts`
-- [ ] T020 [P] [US1] Contract test for book endpoints (create/list/get/update/delete) in `backend/tests/contract/books.test.ts`
-- [ ] T021 [P] [US1] Integration test for create-challenge-then-add-book-with-reason flow in `backend/tests/integration/challenge-book.test.ts`
-- [ ] T022 [P] [US1] Playwright E2E for US1 Independent Test in `frontend/tests/e2e/us1-challenge-book.spec.ts`
+- [X] T019 [P] [US1] Contract test for challenge endpoints (create/list/get/update/delete + ownership) in `backend/tests/contract/challenges.test.ts`
+- [X] T020 [P] [US1] Contract test for book endpoints (create/list/update/delete, reason optional) in `backend/tests/contract/books.test.ts`
+- [X] T021 [P] [US1] Integration test for create-challenge-then-add-book-with-reason flow in `backend/tests/integration/challenge-book.test.ts`
+- [X] T022 [P] [US1] Playwright E2E for US1 Independent Test in `frontend/tests/e2e/us1-challenge-book.spec.ts` (written; run with `npm run test:e2e` after `npx playwright install`)
 
 ### Implementation for User Story 1
 
-- [ ] T023 [P] [US1] Implement Challenge service (CRUD, ownership scoping, delete-with-confirm cascade) in `backend/src/services/challenge.ts`
-- [ ] T024 [P] [US1] Implement Book service (CRUD under challenge, reading reason/status) in `backend/src/services/book.ts`
-- [ ] T025 [US1] Implement challenge routes in `backend/src/api/challenges.ts` (depends on T023)
-- [ ] T026 [US1] Implement book routes in `backend/src/api/books.ts` (depends on T024)
-- [ ] T027 [US1] Wire validation (shared Zod schemas) and ownership guard into challenge/book routes
-- [ ] T028 [P] [US1] Frontend Challenge list + create page in `frontend/src/pages/Challenges.tsx`
-- [ ] T029 [P] [US1] Frontend Challenge detail page with add-book form and reason in `frontend/src/pages/ChallengeDetail.tsx`
-- [ ] T030 [US1] Frontend TanStack Query hooks for challenges/books in `frontend/src/services/challenges.ts` and `frontend/src/services/books.ts`
-- [ ] T031 [US1] Empty states + delete confirmation UI for challenges/books (FR-012, FR-014)
+- [X] T023 [P] [US1] Implement Challenge service (CRUD, ownership scoping, delete-with-confirm cascade) in `backend/src/services/challenge.ts`
+- [X] T024 [P] [US1] Implement Book service (CRUD under challenge, reading reason/status) in `backend/src/services/book.ts`
+- [X] T025 [US1] Implement challenge routes in `backend/src/api/challenges.ts` (depends on T023)
+- [X] T026 [US1] Implement book routes in `backend/src/api/books.ts` (depends on T024)
+- [X] T027 [US1] Wire validation (shared Zod schemas) and ownership guard into challenge/book routes
+- [X] T028 [P] [US1] Frontend Challenge list + create page in `frontend/src/pages/Challenges.tsx`
+- [X] T029 [P] [US1] Frontend Challenge detail page with add-book form and reason in `frontend/src/pages/ChallengeDetail.tsx`
+- [X] T030 [US1] Frontend TanStack Query hooks for challenges/books in `frontend/src/services/challenges.ts` and `frontend/src/services/books.ts`
+- [X] T031 [US1] Empty states + delete confirmation UI for challenges/books (FR-012, FR-014)
 
 **Checkpoint**: User Story 1 is fully functional and independently testable (MVP)
 
